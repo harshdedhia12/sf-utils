@@ -1,20 +1,15 @@
 {
-  "name": "sf-utils",
+  "name": "@harshdedhia12/sf-utils",
   "version": "1.0.0",
-  "description": "",
+  "description": "Package for trying out GITHUB Package Registry",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+  "publishConfig": {
+    "registry": "https://npm.pkg.github.com/@userName"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/harshdedhia12/sf-utils.git"
+  "scripts": {
+    "start": "node index.js"
   },
   "keywords": [],
   "author": "",
-  "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/harshdedhia12/sf-utils/issues"
-  },
-  "homepage": "https://github.com/harshdedhia12/sf-utils#readme"
+  "license": "ISC"
 }
