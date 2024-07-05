@@ -4,7 +4,7 @@
   "description": "Package for trying out GITHUB Package Registry",
   "main": "index.js",
   "publishConfig": {
-    "registry": "https://npm.pkg.github.com/@userName"
+    "registry": "https://npm.pkg.github.com/@harshdedhia12"
   },
   "scripts": {
     "start": "node index.js"
