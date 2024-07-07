@@ -1,5 +1,7 @@
 import { decode, encode } from "msgpack-decorators";
-const encryptionLevel = process.env.ENCRYPTION_LEVEL || 0
+import { plainToInstance } from "class-transformer";
+
+const encryptionLevel = process.env.ENCRYPTION_LEVEL || 0;
 
 class CommonRequest {
   constructor() {
@@ -7,7 +9,7 @@ class CommonRequest {
   }
 }
 
-exports.deserializeUserApi = async (req, res, next) => {
+exports.deserializeApi = async (req, res, next) => {
   if (encryptionLevel === 0) return next();
   const buffer = await readBodyAsBuffer(req);
   const decodedRequest = decode(buffer, CommonRequest);
@@ -15,11 +17,18 @@ exports.deserializeUserApi = async (req, res, next) => {
   return next();
 };
 
+exports.serializeApi = (reqObj, classRef) => {
+  if (encryptionLevel === 0) return reqObj;
+  const classObj = plainToInstance(classRef, reqObj, { exposeUnsetFields: false });
+  const encodes = encode(classObj, classRef);
+  return Buffer.from(encodes);
+};
+
 async function readBodyAsBuffer(req) {
   return new Promise((resolve, reject) => {
-    let buffer = Buffer.alloc(0)
-    req.on("data", (chunk) => (buffer = Buffer.concat([buffer, chunk])))
-    req.on("end", () => resolve(buffer))
-    req.on("error", reject)
+    let buffer = Buffer.alloc(0);
+    req.on("data", (chunk) => (buffer = Buffer.concat([buffer, chunk])));
+    req.on("end", () => resolve(buffer));
+    req.on("error", reject);
   })
 }
