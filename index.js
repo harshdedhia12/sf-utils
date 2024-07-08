@@ -9,7 +9,7 @@ class CommonRequest {
   }
 }
 
-exports.deserializeApi = async (req, res, next) => {
+const deserializeApi = async (req, res, next) => {
   if (encryptionLevel === 0) return next();
   const buffer = await readBodyAsBuffer(req);
   const decodedRequest = decode(buffer, CommonRequest);
@@ -17,7 +17,7 @@ exports.deserializeApi = async (req, res, next) => {
   return next();
 };
 
-exports.serializeApi = (reqObj, classRef) => {
+const serializeApi = (reqObj, classRef) => {
   if (encryptionLevel === 0) return reqObj;
   const classObj = plainToInstance(classRef, reqObj, { exposeUnsetFields: false });
   const encodes = encode(classObj, classRef);
@@ -32,3 +32,6 @@ async function readBodyAsBuffer(req) {
     req.on("error", reject);
   })
 }
+
+const utils = { deserializeApi, serializeApi };
+export default utils;
