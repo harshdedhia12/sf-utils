@@ -1,7 +1,9 @@
 import { decode, encode } from "msgpack-decorators";
 import { plainToInstance } from "class-transformer";
+import { customAlphabet } from "nanoid";
 
 const encryptionLevel = process.env.ENCRYPTION_LEVEL || 0;
+const otp = customAlphabet('1234567890', 6);
 
 class CommonRequest {
   constructor() {
@@ -24,6 +26,10 @@ const serializeApi = (reqObj, classRef) => {
   return Buffer.from(encodes);
 };
 
+const generateOtp = () => {
+  return parseInt(otp());
+};
+
 async function readBodyAsBuffer(req) {
   return new Promise((resolve, reject) => {
     let buffer = Buffer.alloc(0);
@@ -33,5 +39,5 @@ async function readBodyAsBuffer(req) {
   })
 }
 
-const utils = { deserializeApi, serializeApi };
+const utils = { deserializeApi, serializeApi, generateOtp };
 export default utils;
