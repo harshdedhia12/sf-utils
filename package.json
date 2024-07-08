@@ -1,6 +1,6 @@
 {
   "name": "@harshdedhia12/sf-utils",
-  "version": "1.0.3",
+  "version": "1.0.4",
   "description": "Package for trying out GITHUB Package Registry",
   "main": "index.js",
   "publishConfig": {
@@ -13,6 +13,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "msgpack-decorators": "github:camnewnham/msgpack-decorators"
+    "msgpack-decorators": "github:camnewnham/msgpack-decorators",
+    "nanoid": "^5.0.7"
   }
 }
